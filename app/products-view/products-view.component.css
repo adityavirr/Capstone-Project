@@ -1,0 +1,19 @@
+.card-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    padding: 50px;
+    row-gap: 30px;
+    column-gap: 30px;
+}
+
+#searchbox{
+    align-items: center;
+    justify-content: center;
+}
+
+#filter{
+    align-items: center;
+    justify-content: center;
+}

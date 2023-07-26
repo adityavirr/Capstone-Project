@@ -1,0 +1,126 @@
+<form [formGroup]="userForm" id="userForm">
+    <!-- Customer Details Section -->
+    <h2 style="margin-left: 20px; color: blue;">Customer Details</h2>
+    <p class="fs-6 mx-2 text-center fst-italic">Please fill this form with your details to place the order</p>
+    <p class="mx-2 text-center fst-italic" style="font-size: 12px;">(* - required)</p>
+
+    <!-- First Name Field -->
+    <mat-form-field>
+        <input matInput type="text" placeholder="First Name" id="firstName" formControlName="firstName" />
+        <mat-error *ngIf="firstName?.errors?.['required']">
+            First Name is required
+        </mat-error>
+        <mat-error *ngIf="firstName?.errors?.['minlength']">
+            Minimum 2 characters required
+        </mat-error>
+        <mat-error *ngIf="firstName?.errors?.['pattern']">
+            First Name can contain only alphabets
+        </mat-error>
+    </mat-form-field>
+
+    <!-- Last Name Field -->
+    <mat-form-field>
+        <input matInput type="text" placeholder="Last Name" id="lastName" formControlName="lastName" />
+    </mat-form-field>
+    <br />
+
+    <!-- Email Field -->
+    <mat-form-field>
+        <input matInput type="text" placeholder="Email" id="email" formControlName="email" />
+        <mat-error *ngIf="email?.errors?.['required']">
+            Email is required
+        </mat-error>
+        <mat-error *ngIf="email?.errors?.['pattern']">
+            Enter valid email address
+        </mat-error>
+    </mat-form-field>
+    <br />
+
+    <!-- Gender Selection -->
+    <label style="margin-left: 30px;">Gender: </label>
+    <mat-radio-group aria-label="Select Gender" class="radio-group" formControlName="gender" id="gender">
+        <mat-radio-button value="male">Male</mat-radio-button>
+        <mat-radio-button value="female">Female</mat-radio-button>
+        <mat-radio-button value="others">Others</mat-radio-button>
+    </mat-radio-group>
+    <br />
+
+    <!-- Age Field -->
+    <mat-form-field>
+        <input type="number" matInput placeholder="Age" id="age" formControlName="age" />
+    </mat-form-field>
+
+    <!-- Phone Number Field -->
+    <mat-form-field>
+        <input matInput type="text" placeholder="Phone Number" id="phone" formControlName="phone" />
+        <mat-error *ngIf="phone?.errors?.['pattern']">
+            Please enter valid 10 digit phone number without country code
+        </mat-error>
+        <mat-error *ngIf="phone?.errors?.['required']">
+            Phone number is required
+        </mat-error>
+    </mat-form-field>
+    <br />
+
+    <!-- Address Section -->
+    <div formGroupName="address">
+
+
+        <!-- Address Input with Autocomplete Dropdown-->
+        <section *ngIf="!isEditable.value" >
+            <h4 style="margin-left: 30px;">Address: </h4>
+            <mat-form-field style="width: 70%;">
+                <input type="text" formControlName="address" placeholder="Address" matInput [matAutocomplete]="auto"
+                    (input)="onAddressInput($event)" />
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectAddress()">
+                    <mat-option *ngFor="let suggestion of addressSuggestions" [value]="suggestion.display_name">
+                        {{ suggestion.display_name }}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </section>
+
+        <!-- Manual Address Entry Toggle Button -->
+        <div style="margin-left: 30px;">
+            Enter Address manually ?
+        </div>
+        <mat-slide-toggle [formControl]="isEditable" style="margin-left: 30px;" color="primary"></mat-slide-toggle>  Yes
+        <br>
+
+       <!-- Manual Address Entry Form -->
+        <section [hidden]="!isEditable.value">
+            <br />
+            <h4 style="margin-left: 30px;">Address: </h4>
+
+             <!-- Street Field -->
+            <mat-form-field>
+                <input matInput type="text" placeholder="Street" id="street" formControlName="street" />
+            </mat-form-field>
+            <br />
+
+            <!-- City Field -->
+            <mat-form-field>
+                <input matInput type="text" placeholder="City" id="city" formControlName="city" />
+                <mat-error *ngIf="city?.errors?.['pattern']">
+                    City can contain only alphabets
+                </mat-error>
+            </mat-form-field>
+
+            <!-- State Field -->
+            <mat-form-field>
+                <input matInput type="text" placeholder="State" id="state" formControlName="state" />
+                <mat-error *ngIf="state?.errors?.['pattern']">
+                    State can contain only alphabets
+                </mat-error>
+            </mat-form-field>
+
+            <!-- Pin Code Field -->
+            <mat-form-field>
+                <input matInput type="text" placeholder="Pin Code" id="pinCode" formControlName="pinCode" />
+                <mat-error *ngIf="pinCode?.errors?.['pattern']">
+                    Pin code should be 6-digit number
+                </mat-error>
+            </mat-form-field>
+        </section>
+    </div>
+</form>

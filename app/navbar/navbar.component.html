@@ -1,0 +1,49 @@
+<!-- Side Navigation Container -->
+<mat-sidenav-container class="sidenav-container">
+
+  <!-- Side Navigation -->
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="'navigation'" [mode]="'side'" [opened]="false">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+
+      <!-- Home Link -->
+      <a mat-list-item routerLink="/products">
+        <mat-icon class="icon">home</mat-icon> Home
+      </a>
+
+      <!-- Order Requests Link -->
+      <a mat-list-item routerLink="/orders-list">
+        <mat-icon>lists</mat-icon> Order Requests
+      </a>
+
+      <!-- Logout Link (Displayed if user is logged in) -->
+      <a mat-list-item *ngIf="isLoggedIn === true" (click)="logout()">
+        <mat-icon matTooltip="logout">logout</mat-icon> Log Out
+      </a>
+
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- Main Content Area -->
+  <mat-sidenav-content>
+
+    <!-- Top Toolbar -->
+    <mat-toolbar color="accent">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <!-- Header Component -->
+      <app-header [loggedIn]="isLoggedIn"></app-header>
+    </mat-toolbar>
+
+    <!-- Router Outlet -->
+    <router-outlet (activate)="onLoggedIn($event)"></router-outlet>
+
+    <!-- Footer Component -->
+    <footer class="footer">
+      <app-footer></app-footer>
+    </footer>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

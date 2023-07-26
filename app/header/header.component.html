@@ -1,0 +1,16 @@
+<div id="header">
+    <div id="title-block">
+        <a routerLink="/products"><h1 class="fs-3">{{headerTitle}}</h1></a>
+    </div>
+    <div id="navbar">
+        <button mat-icon-button routerLink="/products">
+            <mat-icon matTooltip="Home">home</mat-icon>
+          </button>
+         <button mat-icon-button routerLink="/orders-list">
+          <mat-icon matTooltip="Order Requests">lists</mat-icon>
+        </button>
+        <button mat-icon-button *ngIf="loggedIn===true">
+          <mat-icon matTooltip="Log Out" (click)="logout()">logout</mat-icon>
+         </button>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+#header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    width: 90vw;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    
+  }
+  
+  #title-block {
+    display:flex;
+    justify-content: left;
+    align-items: center;
+    
+  }
+
+  a{
+    text-decoration: none;
+  }
+
+  h1{
+    font-family: 'Rock Salt', cursive;
+    color: antiquewhite;
+  }
+
+ 

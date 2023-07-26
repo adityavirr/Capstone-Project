@@ -1,0 +1,7 @@
+#userForm mat-form-field, button, mat-radio-button{
+    margin-left: 30px;
+}
+
+#userForm{
+    width: 650px;
+}

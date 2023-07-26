@@ -1,0 +1,10 @@
+<form [formGroup]="searchForm">
+<mat-form-field id="search" appearance="outline">
+    <mat-label>Enter Search Text</mat-label>
+    <input matInput type="string" placeholder="Enter Search Text" formControlName="searchText">
+  </mat-form-field>
+  <button mat-mini-fab color="primary" (click)="searchEvent()" style="margin-left: 20px;">
+    <mat-icon>search</mat-icon>
+  </button>
+  <button mat-mini-fab (click)="resetSearch()" style="margin-left: 20px;"><mat-icon>cancel</mat-icon></button>
+</form>

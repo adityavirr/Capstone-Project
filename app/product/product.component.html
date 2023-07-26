@@ -1,0 +1,39 @@
+<!-- Card Container -->
+<div class="card-container d-flex">
+  <!-- Link to Product Details -->
+  <a routerLink="/products/{{product?.id}}">
+    
+    <mat-card class="text-center px-2 pt-4" matRipple [matRippleCentered]="true">
+
+      <!-- Product Image -->
+      <img [src]="product?.imageURL" alt="{{product?.name}}">
+
+      <!-- Card Content Section -->
+      <section class="card-content">
+        
+        <!-- Product Name -->
+        <p class="pt-2 fw-bold fs-4">{{product?.name}}</p>
+
+        <!-- Price and Rating -->
+        <div class="d-flex justify-content-around">
+          <p class="pt-1 fs-2">₹ {{product?.price}}</p>
+          <span class="pt-1 fs-6 d-flex align-items-center badge text-bg-light">
+            <!-- Rating Image -->
+            <img src="../../assets/rating.jpg" alt="rating" style="width: auto;height: auto;">
+            {{product?.rating}}
+          </span>
+        </div>
+
+        <!-- Product Weight -->
+        <p class="pt-2 fs-5">{{product?.weight}}</p>
+
+        <!-- Product Availability -->
+        <p *ngIf="product?.availability === 'In Stock'" class="pt-2 fs-6">Availability: <span style="color: green;"> {{
+            product?.availability }} </span></p>
+        <p *ngIf="product?.availability === 'Out of Stock'" class="pt-2 fs-6">Availability: <span style="color: red;">
+            {{ product?.availability }} </span></p>
+      </section>
+
+    </mat-card>
+  </a>
+</div>

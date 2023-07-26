@@ -1,0 +1,164 @@
+<div class="container">
+
+  <!-- Row div -->
+  <div class="row my-4">
+
+    <!-- Product Image Column-->
+    <div class="col-md-6" id="product-img">
+      <img src="{{ product.imageURL }}" alt="{{ product.name }}" class="img-fluid">
+    </div>
+
+    <!-- Product Details Column-->
+    <div class="col-md-6" id="product-details-wrapper">
+
+      <!-- Product Details -->
+      <div id="product-details">
+        <p class="pt-2 fw-bold fs-4">{{ product.name }}</p>
+        <p class="pt-1 fst-italic">{{ product.description }}</p>
+        <p class="pt-1 fs-2">₹ {{ product.price }}</p>
+        <p class="pt-2 fs-6">Weight: {{ product.weight }}</p>
+        <p class="pt-2 fs-6">Category: {{ product.category }}</p>
+        <p *ngIf="product.flavour" class="pt-1 fs-6">Flavour: {{ product.flavour }}</p>
+        <p *ngIf="product.flavour" class="pt-1 fs-6">Shape: {{ product.shape }}</p>
+
+        <span class="pt-1 fs-6">
+          Rating:
+          <img src="../../assets/rating.jpg" alt="rating" style="width: auto;height: auto;">
+          {{ product.rating }}
+        </span>
+
+        <p *ngIf="product.availability === 'In Stock'" class="pt-2 fs-6" >Availability: <span style="color: green;"> {{ product.availability }} </span></p>
+        <p *ngIf="product.availability === 'Out of Stock'" class="pt-2 fs-6" >Availability: <span style="color: red;"> {{ product.availability }} </span></p>
+
+        <!-- Order Form -->
+        <section  *ngIf="product.availability === 'In Stock'">
+        <form [formGroup]="orderForm">
+
+          <!-- Eggless Option for Cakes -->
+          <mat-radio-group class="d-flex" *ngIf="product?.category === 'Cakes' && product.availability === 'In Stock'" aria-label="Select an option"
+            name="isEggless" formControlName="isEggless" required>
+            <mat-label>Eggless Option:</mat-label><br />
+            <mat-radio-button value=false [checked]="true">With Egg</mat-radio-button>
+            <mat-radio-button value=true>Eggless</mat-radio-button>
+          </mat-radio-group>
+
+          <!-- Order Quantity -->
+          <mat-form-field>
+            <input type="number" matInput placeholder="Quantity" id="quantity" formControlName="quantity" min="1" />
+            <mat-error *ngIf="quantity?.errors?.['required']">
+              Quantity is required
+            </mat-error>
+            <mat-error *ngIf="quantity?.errors?.['min']">
+              Minimum Order Quantity is 1
+            </mat-error>
+          </mat-form-field>
+          <br />
+
+          <!-- Total Bill Amount -->
+          <mat-label>Total Bill Amount:</mat-label>
+          <span class="pt-1 fs-4 mx-5 my-5">₹ {{ totalAmount }}</span>
+
+          <!-- Optional Message -->
+          <br /><br />
+          <mat-label class="pt-4 mt-4" style="margin-top: 5px;">Enter Message (Optional) :</mat-label><br /><br />
+          <textarea cols="30" rows="5" name="message" id="message" formControlName="message"></textarea>
+
+          <!-- Delivery Details -->
+          <div formGroupName="deliveryDetails" id="deliveryDetails">
+            <h3 style="margin-top: 10px;"><b>Delivery Details</b></h3>
+
+            <!-- Name Input -->
+            <mat-form-field>
+              <input matInput type="text" placeholder="Name" id="name" formControlName="name" />
+              <mat-error *ngIf="name?.errors?.['required']">
+                Name is required
+              </mat-error>
+              <mat-error *ngIf="name?.errors?.['pattern']">
+                Name can contain only alphabets
+              </mat-error>
+            </mat-form-field>
+            <br />
+
+            <!-- Street Input -->
+            <mat-form-field>
+              <input matInput type="text" placeholder="Street" id="street" formControlName="street" />
+              <mat-error *ngIf="street?.errors?.['required']">
+                Street is required
+              </mat-error>
+            </mat-form-field>
+            <br />
+
+            <!-- City Input -->
+            <mat-form-field>
+              <input matInput type="text" placeholder="City" id="city" formControlName="city" />
+              <mat-error *ngIf="city?.errors?.['required']">
+                City is required
+              </mat-error>
+              <mat-error *ngIf="city?.errors?.['pattern']">
+                City can contain only alphabets
+              </mat-error>
+            </mat-form-field>
+
+            <!-- State  Input -->
+            <mat-form-field>
+              <input matInput type="text" placeholder="State" id="state" formControlName="state" />
+              <mat-error *ngIf="state?.errors?.['required']">
+                State is required
+              </mat-error>
+              <mat-error *ngIf="state?.errors?.['pattern']">
+                State can contain only alphabets
+              </mat-error>
+            </mat-form-field>
+
+            <!-- PIN Code Input -->
+            <mat-form-field>
+              <input matInput type="text" placeholder="Pin Code" id="pinCode" formControlName="pinCode" />
+              <mat-error *ngIf="pinCode?.errors?.['required']">
+                PIN Code is required
+              </mat-error>
+              <mat-error *ngIf="pinCode?.errors?.['pattern']">
+                PIN code should be 6-digit number
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Phone Number Input -->
+            <mat-form-field>
+              <input matInput type="text" placeholder="Phone number" id="phone" formControlName="phone" />
+              <mat-error *ngIf="phone?.errors?.['required']">
+                Phone number is required
+              </mat-error>
+              <mat-error *ngIf="phone?.errors?.['pattern']">
+                Please enter valid 10 digit phone number without country code
+              </mat-error>
+            </mat-form-field><br>
+
+          </div>
+        </form>
+
+        <!-- Buy Now Button -->
+        <button mat-raised-button color="accent" [disabled]="!(orderForm.valid)" (click)="toggleForm()">Buy
+          Now</button>
+        </section>
+        <!--Customer Details Form-->
+        <div class="container-fluid overlay flex-wrap" [hidden]="isFormHidden" id="userForm">
+          <div class="row justify-content-center align-items-center">
+            <div class="col-sm-6 col-md-12">
+              <mat-card>
+                <mat-card-content>
+                  <app-user-form (userFormValueChange)="onUserFormValueChange($event)"
+                    (userFormValidity)="userFormValidity($event)"></app-user-form>
+                  <div class="d-flex justify-content-between mt-3">
+                    <button color="primary" mat-button mat-raised-button
+                      [disabled]="!(orderForm.valid && userFormValid)" (click)="placeOrder()">Place Order</button>
+                    <button color="warn" mat-button mat-raised-button (click)="toggleForm()">Cancel</button>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+        <br />
+      </div>
+    </div>
+  </div>
+</div>
