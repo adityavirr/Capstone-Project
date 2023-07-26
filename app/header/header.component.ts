@@ -20,9 +20,12 @@ headerTitle: string = "Bake My Cake";
     this.loggedIn = this.authService.isLoggedIn();
   }
   
+  // Method to handle logout
   logout() {
-    this.authService.logout();
-    this.loggedIn = this.authService.isLoggedIn();
+    this.authService.logout();  //Using service to perform logout
+    this.loggedIn = this.authService.isLoggedIn();  //Updating loggedIn value with the login status
+
+    // If logged out, navigate back to home page
     if(!this.loggedIn) {
       this._snackBar.open('Log out successful!', 'OK', {
         duration: 5000,

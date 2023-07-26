@@ -3,7 +3,6 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { LoginComponent } from '../login/login.component';
-import { ProductsViewComponent } from '../products-view/products-view.component';
 import { AuthService } from '../services/auth.service';
 import { RouterService } from '../services/router.service';
 
@@ -27,6 +26,7 @@ export class NavbarComponent {
 
   isLoggedIn: boolean = false;
 
+  // Method called whenever router outlet gets activated
   onLoggedIn($event: any){
     this.isLoggedIn = this.authService.isLoggedIn();
     if($event instanceof LoginComponent){
@@ -34,6 +34,7 @@ export class NavbarComponent {
     }
   }
 
+  // Method called when logout is clicked in the toolbar(sidenav)
   logout() {
     this.authService.logout();
     this.isLoggedIn = this.authService.isLoggedIn();

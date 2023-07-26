@@ -4,7 +4,7 @@ import { OrderService } from '../services/order.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl} from '@angular/forms';
 import { formatDate } from '@angular/common';
 
 @Component({
@@ -17,7 +17,8 @@ export class OrdersListComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private orderService: OrderService, private fb: FormBuilder) { }
-
+ 
+  // Properties
   orders: Order[] = [];
 
   searchTypeControl: FormControl = new FormControl('productName');
@@ -36,6 +37,8 @@ export class OrdersListComponent implements OnInit {
   maxDate = this.removeTimeFromDate(new Date());
 
   ngOnInit(): void {
+
+    // Fetch orders from the orderService
     this.orderService.getOrders().subscribe({
       next: orders => {
         console.log('OrderService:', orders)
@@ -51,8 +54,10 @@ export class OrdersListComponent implements OnInit {
     });
   }
 
+  // Table Columns
   displayedColumns: string[] = ['id', 'date', 'productName', 'productWeight', 'isEggless', 'quantity', 'deliveryDetails', 'message', 'userDetails', 'totalAmount'];
 
+  // Function to format date in dd/mm/yyyy format
   formatDate(date: string): string {
     return formatDate(new Date(date), 'dd/MM/yyyy', 'en');
   }
@@ -83,14 +88,17 @@ export class OrdersListComponent implements OnInit {
     }
   }
 
+  // Function to remove time from date
   removeTimeFromDate(date: Date): Date {
     return new Date(date.getFullYear(), date.getMonth(), date.getDate());
   }
 
+  // Function to check if given date is within given date range
   isDateInRange(date: Date, startDate: Date, endDate: Date): boolean {
     return date >= this.removeTimeFromDate(startDate) && date <= this.removeTimeFromDate(endDate);
   }
   
+  // Function to apply the filter
   applyFilter() {
     const startDate = this.range.get('start')?.value;
     const endDate = this.range.get('end')?.value;
@@ -105,6 +113,7 @@ export class OrdersListComponent implements OnInit {
     }
   }
 
+  // Function to reset the filter
   resetForm(){
     this.range.reset();
     this.dataSource.data = this.orders;

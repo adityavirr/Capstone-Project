@@ -1,7 +1,11 @@
 <div class="container d-flex">
+
+    <!-- Login Form section -->
     <div id="login-form">
         <mat-card>
             <h3>You need to first login to view order requests</h3>
+
+            <!-- Login Form -->
             <form [formGroup]="loginForm" (ngSubmit)="validateLogin()">
                 <mat-form-field>
                     <mat-label>Enter Security Code</mat-label>
@@ -9,11 +13,14 @@
                     <mat-error *ngIf="securityCode?.errors?.['required']">Security Code is required</mat-error>
                 </mat-form-field>
                 <br>
+                <!-- Error for incorrect code -->
                 <mat-error *ngIf="isCodeIncorrect">Incorrect code</mat-error>
                 <br>
                 <button mat-raised-button color="primary" [disabled]="loginForm.invalid" type="submit">Login</button>
             </form>
             <br />
+
+            <!-- Link for Customers back to homepage-->
             <p>If you are a Customer, <a routerLink="/products">click here</a> to go back to Homepage</p>
         </mat-card>
     </div>

@@ -35,32 +35,28 @@ export class OrderViewComponent implements OnInit {
 
   totalProducts: Product[] = [];
 
-  toggleForm() {
+  // Toggle UserForm between hidden and shown
+  toggleUserForm() {
     this.isFormHidden = !this.isFormHidden;
     this.userForm.userForm.reset();
   }
 
-  cancelForm() {
-    this.isFormHidden = !this.isFormHidden;
-    this.orderForm.reset();
-  }
-
-
   constructor(private activatedRoute: ActivatedRoute, private productService: ProductService, private orderService: OrderService,
     private fb: FormBuilder, private _snackBar: MatSnackBar, private routerService: RouterService) { }
 
-
+// Get id of the product upon initialisation of this component
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(data => {
       let id = +data.get('id')! ?? 0;
       this.productService.getProduct(+id).subscribe(data => {
           this.product = data;
-          this.submitStatus = false;
+          this.submitStatus = false;    //set the submission status flag to be false
       });
   });
-  this.onChanges();
+  this.onChanges();  
 }
 
+// Method calculating the total amount from subscribing to value changes in quantity field
 onChanges(): void {
   
   this.orderForm.get('quantity')?.valueChanges.subscribe(quantity => {
@@ -73,15 +69,17 @@ onChanges(): void {
 
 }
 
-
+// Method receiveing the emitted user data from UserForm component
 onUserFormValueChange(user: any) {
   this.user = user;
-  console.log('onUserFormValueChange:', user)
 }
 
+// Method to receive the validity of the user form in the UserForm component
 userFormValidity(userFormValidity:any) {
   this.userFormValid = userFormValidity;
 }
+
+// OrderForm Form group
 orderForm = this.fb.group({
   isEggless: [false],
   quantity: [, [Validators.required,Validators.min(1)]],
@@ -97,6 +95,7 @@ orderForm = this.fb.group({
   })
 })
 
+// Getter method for the form controls
 get quantity() { return this.orderForm.get("quantity"); }
 get name() { return this.orderForm.get("deliveryDetails.name"); }
 get street() { return this.orderForm.get("deliveryDetails.street"); }
@@ -105,6 +104,7 @@ get state() { return this.orderForm.get("deliveryDetails.state"); }
 get pinCode() { return this.orderForm.get("deliveryDetails.pinCode"); }
 get phone() { return this.orderForm.get("deliveryDetails.phone"); }
 
+// Method for placing the order
 placeOrder() {
   
   let order: Order = {
@@ -126,9 +126,9 @@ placeOrder() {
     }
   }  
 
+  // Calling the addOrder function of the orderService for adding the order to the server
   this.orderService.addOrder(order).subscribe({
     next: data => {
-      console.log(data);
           this.submitStatus = true;
           this._snackBar.open('Order Placed successfully', 'OK', {
             duration: 5000,
@@ -142,6 +142,7 @@ placeOrder() {
   })
 }
 
+// Method to handle the CanDeactivate guard
 canDeactivate() {
   if (!this.submitStatus && this.orderForm.dirty){
     this.submitStatus = confirm("You have not completed the purchase. Any details entered will be lost. Are you sure you want to leave?");    

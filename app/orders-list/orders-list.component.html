@@ -1,4 +1,5 @@
 <div class="d-flex justify-content-around my-2">
+
   <!-- Search Box -->
   <div class="d-flex align-items-end" id="searchbox">
     <mat-form-field appearance="outline">
@@ -33,6 +34,7 @@
 
 <!-- Table -->
 <table mat-table [dataSource]="dataSource" matSort>
+
   <!-- Id Column -->
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef mat-sort-header class="fs-6 fw-bold ">Id</th>
@@ -103,6 +105,7 @@
       <div *ngIf="order.user?.address?.address" class="address-lines">
        Address: {{ order.user?.address?.address }}
       </div>
+      
       <!-- Address Entered Manually -->
       <section *ngIf="!order.user?.address?.address" style="padding-bottom: 3px;">
       <div>Address: {{ order.user?.address?.street }},</div>

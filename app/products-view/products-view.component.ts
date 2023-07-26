@@ -8,12 +8,14 @@ import { ProductService } from '../services/product.service';
   styleUrls: ['./products-view.component.css']
 })
 export class ProductsViewComponent implements OnInit {
-  products: Product[] = [];
-  filteredProducts: Product[] = [];
-  originalData: Product[] = [];
+
+  products: Product[] = [];   //Array to hold data to be displayed
+  filteredProducts: Product[] = [];   //Array to hold data after filter is applied
+  originalData: Product[] = [];   //Array to hold all products received from the server
 
   constructor(private productService: ProductService) { }
 
+  // Populate the arrays with the data received from server using the productService
   ngOnInit(): void {
     this.productService.getProducts().subscribe({
       next: data => {
@@ -27,6 +29,8 @@ export class ProductsViewComponent implements OnInit {
     });
   }
 
+  // Function to search for a product amongst the filtered products
+  // Searches the entire array of products if no filter is applied previously
   onProductSearched(searchText: string) {
     if (searchText === '' || !searchText)
       this.products = this.filteredProducts;
@@ -34,20 +38,8 @@ export class ProductsViewComponent implements OnInit {
     else
       this.products = this.filteredProducts.filter(product => product.name?.toLowerCase().includes(searchText.toLowerCase()));
   }
-  //   this.productService.getProducts().subscribe({
-  //      next: data => {
-  //        if(searchText === '' || !searchText)
-  //        this.products = data;
 
-  //        else
-  //        this.products = this.products.filter(product => product.name?.toLowerCase().includes(searchText.toLowerCase()));
-  //      },
-  //      error: error => {
-  //        alert('Failed to Fetch Products Due to Server Error !!');
-  //      }
-  //    });
-  // }
-
+  // Function to filter the products based on selected category
   onProductFiltered(filterCategory: string) {
     if (filterCategory === '' || !filterCategory) {
       this.products = this.originalData;
@@ -59,22 +51,5 @@ export class ProductsViewComponent implements OnInit {
       this.products = this.filteredProducts;
     }
   }
-  //   this.productService.getProducts().subscribe({
-  //     next: data => {
-  //       if (filterCategory === '' || !filterCategory) {
-  //         this.products = data;
-  //         this.filteredProducts = data;
-  //       }
-
-  //       else {
-  //         this.filteredProducts = data.filter(product => product.category === filterCategory);
-  //         this.products = this.filteredProducts;
-  //       }
-  //     },
-  //     error: error => {
-  //       alert('Failed to Fetch Products Due to Server Error !!');
-  //     }
-  //   });
-  // }
 
 }

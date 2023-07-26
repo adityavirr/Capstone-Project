@@ -15,6 +15,7 @@ export class FilterComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // Method to emit the category
   filterProduct(filterCategory:string){
     this.productFiltered.emit(filterCategory);
   }

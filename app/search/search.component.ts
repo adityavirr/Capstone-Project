@@ -14,15 +14,18 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // SearchForm form group with searchText form control
   searchForm = this.fb.group({
     searchText: ['']
   });
 
+  // Function to emit the searchText value
   searchEvent() {
     const searchTerm = this.searchForm.get('searchText')?.value;
     this.searched.emit(searchTerm);
   }
 
+  // Function to reset the form 
   resetSearch() {
     this.searchForm.reset();
     this.searched.emit("");

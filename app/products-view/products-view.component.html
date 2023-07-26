@@ -1,9 +1,14 @@
+<!-- Search Component -->
 <div class="d-flex" id="searchbox">
     <app-search  (searched)="onProductSearched($event)"></app-search>
 </div>
+
+<!-- Filter Component -->
 <div class="d-flex" id="filter">
     <app-filter (productFiltered)="onProductFiltered($event)"></app-filter>
 </div>
+
+<!-- Product Component -->
 <div class="card-container">
     <app-product *ngFor="let product of products" [product] = "product" ></app-product>
 </div>

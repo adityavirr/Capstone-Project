@@ -17,25 +17,31 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  isCodeIncorrect: boolean = false;
+  isCodeIncorrect: boolean = false; 
 
+  // LoginForm Form Group
   loginForm = this.fb.group({
     securityCode: ['',Validators.required]
   });
 
   get securityCode() { return this.loginForm.get("securityCode") };
 
+  // Method to validate login credentials
   validateLogin() {
     const securityCode = this.loginForm.get('securityCode')?.value!;
+
+    // Use Auth Service for authentication with the entered security code
     this.authService.verifyLogin(securityCode);
+
+    // If login is successful, navigate to Order Requests
     if(this.authService.isLoggedIn()) {
-      this.isCodeIncorrect = false;
       this._snackBar.open('You have successfully logged in!', 'OK', {
         duration: 5000,
         panelClass: ['mat-toolbar', 'mat-primary']
       })
       this.routerService.navigateToOrderRequests();
     }
+    // If login is unsuccessful, set error flag to true
     else{
       this.isCodeIncorrect = true;
     }
