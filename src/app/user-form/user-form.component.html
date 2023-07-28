@@ -1,4 +1,5 @@
 <form [formGroup]="userForm" id="userForm">
+
     <!-- Customer Details Section -->
     <h2 style="margin-left: 20px; color: blue;">Customer Details</h2>
     <p class="fs-6 mx-2 text-center fst-italic">Please fill this form with your details to place the order</p>
@@ -67,7 +68,7 @@
 
 
         <!-- Address Input with Autocomplete Dropdown-->
-        <section *ngIf="!isEditable.value" >
+        <section *ngIf="!isEditable.value">
             <h4 style="margin-left: 30px;">Address: </h4>
             <mat-form-field style="width: 70%;">
                 <input type="text" formControlName="address" placeholder="Address" matInput [matAutocomplete]="auto"
@@ -84,15 +85,15 @@
         <div style="margin-left: 30px;">
             Enter Address manually ?
         </div>
-        <mat-slide-toggle [formControl]="isEditable" style="margin-left: 30px;" color="primary"></mat-slide-toggle>  Yes
+        <mat-slide-toggle [formControl]="isEditable" style="margin-left: 30px;" color="primary"></mat-slide-toggle> Yes
         <br>
 
-       <!-- Manual Address Entry Form -->
+        <!-- Manual Address Entry Form -->
         <section [hidden]="!isEditable.value">
             <br />
             <h4 style="margin-left: 30px;">Address: </h4>
 
-             <!-- Street Field -->
+            <!-- Street Field -->
             <mat-form-field>
                 <input matInput type="text" placeholder="Street" id="street" formControlName="street" />
             </mat-form-field>

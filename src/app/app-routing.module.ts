@@ -14,7 +14,6 @@ const routes: Routes = [
   { path: "products", component: ProductsViewComponent},
   { path: "products/:id", component: OrderViewComponent,canActivate: [ProductIdGuard], canDeactivate: [CanDeactivateGuard]},
   { path: "orders-list", component: OrdersListComponent,canActivate: [AuthGuard] },
-
   { path: "login", component: LoginComponent },
   { path: "", redirectTo: "/products", pathMatch: "full" },
   { path: "**", component: PageNotFoundComponent }

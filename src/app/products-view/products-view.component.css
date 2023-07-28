@@ -17,3 +17,17 @@
     align-items: center;
     justify-content: center;
 }
+
+#searchnotfound{
+    color: rgb(233, 30, 99);
+}
+
+#searchnotfound img{
+    width: 100px;
+    height: 100px;
+}
+
+p{
+    width: 500px;
+    margin-top: 15px;
+}

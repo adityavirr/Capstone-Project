@@ -111,6 +111,7 @@ export class UserFormComponent implements OnInit {
     });
   }
 
+// Function to get autocomplete suggestions through the addressService 
   onAddressInput(event: any) {
     const query = event.target.value;
     if (query.length >= 3) {
@@ -122,6 +123,7 @@ export class UserFormComponent implements OnInit {
     }
   }
 
+// Reset suggestions after an option is selected
   onSelectAddress() {
     this.addressSuggestions = [];
   }

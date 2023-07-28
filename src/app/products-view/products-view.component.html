@@ -11,4 +11,8 @@
 <!-- Product Component -->
 <div class="card-container">
     <app-product *ngFor="let product of products" [product] = "product" ></app-product>
+    <div *ngIf="this.products.length === 0" class="fs-5 text-center" id="searchnotfound">
+        <img src="../../assets/magnifying_glass.png" alt="search">
+       <p>Oops! It appears there are no results matching what you're looking for at the moment!</p>
+    </div>
 </div>

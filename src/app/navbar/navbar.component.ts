@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { LoginComponent } from '../login/login.component';
+import { ProductsViewComponent } from '../products-view/products-view.component';
 import { AuthService } from '../services/auth.service';
 import { RouterService } from '../services/router.service';
 
